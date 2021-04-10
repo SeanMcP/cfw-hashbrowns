@@ -1,0 +1,17 @@
+name = "hashbrowns-dev"
+type = "javascript"
+account_id = "8c59b8c832b00e70fa7509e117bb7b35"
+workers_dev = true
+route = ""
+zone_id = ""
+vars = { ENVIRONMENT = "development", APPROVED_HOSTS = "hashbrowns.seanmcp.worker.dev,localhost" }
+kv_namespaces = [
+    { binding = "HASH_BROWNS", id = "1cb03623ba8f4eddb625f58977b4fdd0" }
+]
+
+[env.production]
+name = "hashbrowns"
+vars = { ENVIRONMENT = "production", APPROVED_HOSTS = "hashbrowns.seanmcp.worker.dev,toollama.com,seanmcp.com" }
+kv_namespaces = [
+    { binding = "HASH_BROWNS", id = "ee631b99df334b978eab875cd6cc1503" }
+]
