@@ -13,7 +13,7 @@ async function handleRequest(request) {
 
   if (!approvedHosts.includes(host)) {
     // Unauthorized hosts are rejected
-    return new Response('Be patient with everyone.', { status: 403 })
+    return send(403, { message: 'Your request host is not authorized' })
   }
 
   if (request.method === 'POST') {
@@ -21,7 +21,7 @@ async function handleRequest(request) {
   } else if (request.method === 'GET') {
     return await handleGet(request)
   } else {
-    return new Response('Method not supported', { status: 400 })
+    return send(400, { message: 'Request method is not supported' })
   }
 }
 
@@ -41,11 +41,16 @@ async function handleGet(request) {
       return send(200, { data: value })
     } else {
       // No value for key
-      return send(404, { message: 'Value not found' })
+      return send(404, {
+        message: 'Not found: no value exists in store for that key',
+      })
     }
   } else {
     // No key provided
-    return new Response('Keyless request', { status: 400 })
+    return send(400, {
+      message:
+        'Invalid request: did you remember to add ?key=example to the path?',
+    })
   }
 }
 
@@ -63,7 +68,9 @@ async function handlePost(request) {
     return send(200, { key })
   } else {
     // No body provided
-    return send(400, { message: 'Invalid request' })
+    return send(400, {
+      message: 'Invalid request: did you remember to include a request body?',
+    })
   }
 }
 
